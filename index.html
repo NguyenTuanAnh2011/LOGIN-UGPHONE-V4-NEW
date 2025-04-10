@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roblox</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    .shake {
+      animation: shake 0.4s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-cover bg-center bg-no-repeat min-h-screen flex items-center justify-center relative" style="background-image: url('https://images.roblox.com/1b5f3c26b7fbd5e4c693e5e406c7ba37.jpg')">
+
+  <!-- Form chính -->
+  <div id="form-box" class="bg-black bg-opacity-70 p-8 rounded-2xl w-full max-w-md shadow-lg text-white transition">
+    <h1 class="text-4xl font-bold text-center tracking-widest mb-6">ROBLOX</h1>
+    <form onsubmit="checkLogin(); return false;" class="space-y-4">
+      <input type="text" id="username" placeholder="Tên người dùng/Email/SĐT" required
+             class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <input type="password" id="password" placeholder="Mật khẩu" required
+             class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <button type="submit" id="login-btn"
+              class="w-full bg-white text-black font-semibold py-3 rounded-lg hover:bg-gray-200 transition">Đăng nhập</button>
+    </form>
+
+    <div class="mt-4 flex flex-col space-y-2">
+      <button onclick="checkLogin(true)"
+              class="w-full border border-white py-2 rounded-lg text-white hover:bg-white hover:text-black transition">Mật khẩu dùng một lần</button>
+      <button onclick="checkLogin(true)"
+              class="w-full border border-white py-2 rounded-lg text-white hover:bg-white hover:text-black transition">Đăng Nhập Nhanh</button>
+    </div>
+
+    <div class="mt-4 text-center text-sm text-gray-300">
+      Bạn quên <span class="underline">Mật khẩu</span> hoặc <span class="underline">Tên người dùng</span>?
+    </div>
+
+    <div id="error-message" class="mt-4 text-red-400 text-center hidden">
+      Tên đăng nhập hoặc mật khẩu không đúng!
+    </div>
+  </div>
+
+  <!-- Popup "Đang xử lý..." -->
+  <div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+    <div class="bg-white text-black py-4 px-8 rounded-xl shadow-xl text-lg font-semibold animate-pulse">
+      Đang xử lý...
+    </div>
+  </div>
+
+  <script>
+    const correctUsername = "Tuan_Fix_Lag";
+    const correctPassword = "09090909";
+
+    function checkLogin() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorMsg = document.getElementById("error-message");
+      const loginBtn = document.getElementById("login-btn");
+      const formBox = document.getElementById("form-box");
+      const popup = document.getElementById("popup");
+
+      if (username === correctUsername && password === correctPassword) {
+        errorMsg.classList.add("hidden");
+
+        loginBtn.innerText = "Thành công ✓";
+        loginBtn.classList.remove("bg-white", "text-black");
+        loginBtn.classList.add("bg-green-500", "text-white", "animate-pulse");
+
+        // Hiện popup xử lý
+        popup.classList.remove("hidden");
+
+        // Sau 1.2s thì chuyển trang
+        setTimeout(() => {
+          window.location.href = "https://nguyentuananh2011.github.io/UGPHONE-V4-NEW-/";
+        }, 1200);
+      } else {
+        errorMsg.classList.remove("hidden");
+
+        // Hiệu ứng rung khi sai
+        formBox.classList.add("shake");
+        setTimeout(() => formBox.classList.remove("shake"), 400);
+      }
+    }
+  </script>
+</body>
+  </html>
