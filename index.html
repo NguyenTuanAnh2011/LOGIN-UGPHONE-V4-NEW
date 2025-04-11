@@ -1,252 +1,92 @@
-<!doctype html>
-<html>
-
+<!DOCTYPE html>
+<html lang="vi">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roblox</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-
-<title>HTML Obfuscator : Sample Page</title>
-
-<style>
-*,
-*::before,
-*::after{
-	box-sizing:border-box;
-}
-body{
-	position:relative;
-	margin:0;
-	padding:0;
-	width:100vw;
-	height:100vh;
-	background:linear-gradient(
-		to bottom,#fec 0%,#fff 100%);
-	overflow:hidden;
-}
-.info{
-	position:relative;
-	margin:30px;
-	padding:30px;
-	font-family:"Times New Roman";
-	color:orange;
-	border:1px solid orange;
-	background:rgba(255,255,255,0.8);
-	z-index:100;
-}
-.info a{
-	color:orange;
-	font-weight:bold;
-}
-.info a:hover{
-	color:#c18b28;
-}
-.info .title{
-	margin-bottom:15px;
-	font-size:36px;
-}
-.info .desc{
-	font-size:24px;
-}
-</style>
-
-<script>
-"use strict";
-(function(){
-	function $ce(tagName){
-		return document.createElement(tagName);
-	};
-
-	function getRandomInt(min,max){
-		return Math.floor(Math.random()*(max-min+1))+min;
-	};
-
-	function appendStyle(style){
-		const el=$ce("style");
-		el.type="text/css";
-		if(el.styleSheet){
-			el.styleSheet.cssText=style;
-		}else{
-			el.appendChild(document.createTextNode(style));
-		}
-		document.getElementsByTagName("head")[0].appendChild(el);
-		return el;
-	};
-
-	function onEnd(el,callback,ename){
-		const func=function(e){
-			if(el==e.srcElement){
-				el.removeEventListener(ename,func);
-				if(callback){callback(e);}
-			}
-		};
-		el.addEventListener(ename,func);
-	};
-
-	function onAnimationEnd(el,callback){
-		onEnd(el,callback,"animationend");
-	};
-
-	function insertEmoji(px){
-		const yy=0;
-		const style=`
-#${px.id}.ctower{
-	position:absolute;
-	left:0;
-	top:0;
-	width:${px.size}em;
-	height:100%;
-}
-#${px.id}.ctower .cbox{
-	position:relative;
-	width:100%;
-	height:${px.size}em;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	transform:translateY(-100%);
-}
-#${px.id}.ctower .char{
-	display:inline-block;
-	font-size:${px.size}em;
-	line-height:1.1;
-}
-#${px.id}.ctower{
-	animation-name:kf-ctower-${px.id};
-	animation-fill-mode:forwards;
-	animation-duration:${px.dura}s;
-	animation-timing-function:linear;
-}
-@keyframes kf-ctower-${px.id}{
-	0%{
-		left:0%;
-		transform:translate(-${100+px.wk}%);
-	}
-	100%{
-		left:100%;
-		transform:translate(${px.wk}%);
-	}
-}
-#${px.id}.ctower .cbox{
-	animation-name:kf-cbox-${px.id};
-	animation-fill-mode:forwards;
-	animation-duration:${px.dura}s;
-}
-@keyframes kf-cbox-${px.id}{
-	0%{
-		top:${100-20*px.hk-yy}%;
-		animation-timing-function:ease-in;
-	}
-	15%{
-		top:${100-0*px.hk-yy}%;
-		animation-timing-function:ease-out;
-	}
-	30%{
-		top:${100-15*px.hk-yy}%;
-		animation-timing-function:ease-in;
-	}
-	45%{
-		top:${100-0*px.hk-yy}%;
-		animation-timing-function:ease-out;
-	}
-	60%{
-		top:${100-10*px.hk-yy}%;
-		animation-timing-function:ease-in;
-	}
-	75%{
-		top:${100-0*px.hk-yy}%;
-		animation-timing-function:ease-out;
-	}
-	90%{
-		top:${100-7*px.hk-yy}%;
-		animation-timing-function:ease-in;
-	}
-	100%{
-		top:${100-0*px.hk-yy}%;
-	}
-}
-#${px.id}.ctower .char{
-	animation-name:kf-char-${px.id};
-	animation-fill-mode:forwards;
-	animation-duration:${px.spin}s;
-	animation-iteration-count:infinite;
-	animation-timing-function:linear;
-}
-@keyframes kf-char-${px.id}{
-	0%{
-		transform:rotateZ(0);
-	}
-	100%{
-		transform:rotateZ(360deg);
-	}
-}
-`;
-		const el_style=appendStyle(style);
-
-		const el_char=$ce("div");
-		el_char.className="char";
-		el_char.innerHTML=px.char;
-
-		const el_cbox=$ce("div");
-		el_cbox.className="cbox";
-		el_cbox.appendChild(el_char);
-
-		const el_ctower=$ce("div");
-		el_ctower.id=px.id;
-		el_ctower.className="ctower";
-		el_ctower.appendChild(el_cbox);
-
-		onAnimationEnd(el_ctower,function(){
-			el_ctower.remove();
-			el_style.remove();
-		});
-
-		document.body.appendChild(el_ctower);
-	};
-
-	const emojix=[
-		"😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇",
-		"🙂","🙃","😉","😌","😍","😘","😗","😙","😚","😋",
-		"😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","😏",
-		"😒","😞","😔","😟","😕","🙁","😣","😖","😫","😩",
-		"😢","😭","😤","😠","😡","🤬","🤯","😳","😱","😨",
-		"😰","😥","😓","🤗","🤔","😑","😬","🙄","😲","😴",
-		"🤤","😪","😵","😵‍","🤐","🤢","😷","🤒","🤕","🤑",
-		"🤠","😈"];
-
-	let idx=0;
-	const timer_id=setInterval(function(){
-		if(document.querySelectorAll(".ctower").length<10){
-			idx++;
-			const id="id"+(10000+idx);
-			const px={
-				id,
-				char:emojix[getRandomInt(0,emojix.length-1)],
-				size:getRandomInt(4,10),
-				dura:getRandomInt(4,8),
-				spin:getRandomInt(0.8,5),
-				wk:getRandomInt(20,100),
-				hk:getRandomInt(2,5)
-			};
-			insertEmoji(px);
-		}
-	},1000);
-})();
-</script>
-
+    .shake {
+      animation: shake 0.4s ease-in-out;
+    }
+  </style>
 </head>
+<body class="bg-cover bg-center bg-no-repeat min-h-screen flex items-center justify-center relative" style="background-image: url('https://images.roblox.com/1b5f3c26b7fbd5e4c693e5e406c7ba37.jpg')">
 
-<body>
+  <!-- Form chính -->
+  <div id="form-box" class="bg-black bg-opacity-70 p-8 rounded-2xl w-full max-w-md shadow-lg text-white transition">
+    <h1 class="text-4xl font-bold text-center tracking-widest mb-6">ROBLOX</h1>
+    <form onsubmit="checkLogin(); return false;" class="space-y-4">
+      <input type="text" id="username" placeholder="Tên người dùng/Email/SĐT" required
+             class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <input type="password" id="password" placeholder="Mật khẩu" required
+             class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <button type="submit" id="login-btn"
+              class="w-full bg-white text-black font-semibold py-3 rounded-lg hover:bg-gray-200 transition">Đăng nhập</button>
+    </form>
 
-<!-- [BEGIN] info -->
-<div class="info">
-	<div class="title">Bouncing Emoji</div>
-	<div class="desc">This is a sample HTML page for
-		<a href="http://www.phpkobo.com/html-obfuscator" target="_blank">HTML Obfuscator</a>
-	</div>
-</div>
-<!-- [END] info -->
+    <div class="mt-4 flex flex-col space-y-2">
+      <button onclick="checkLogin(true)"
+              class="w-full border border-white py-2 rounded-lg text-white hover:bg-white hover:text-black transition">Mật khẩu dùng một lần</button>
+      <button onclick="checkLogin(true)"
+              class="w-full border border-white py-2 rounded-lg text-white hover:bg-white hover:text-black transition">Đăng Nhập Nhanh</button>
+    </div>
 
+    <div class="mt-4 text-center text-sm text-gray-300">
+      Bạn quên <span class="underline">Mật khẩu</span> hoặc <span class="underline">Tên người dùng</span>?
+    </div>
+
+    <div id="error-message" class="mt-4 text-red-400 text-center hidden">
+      Tên đăng nhập hoặc mật khẩu không đúng!
+    </div>
+  </div>
+
+  <!-- Popup "Đang xử lý..." -->
+  <div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+    <div class="bg-white text-black py-4 px-8 rounded-xl shadow-xl text-lg font-semibold animate-pulse">
+      Đang xử lý...
+    </div>
+  </div>
+
+  <script>
+    const correctUsername = "Tuan_Fix_Lag";
+    const correctPassword = "09090909";
+
+    function checkLogin() {
+      const username = document.getElementById("username").value.trim();const password = document.getElementById("password").value.trim();
+      const errorMsg = document.getElementById("error-message");
+      const loginBtn = document.getElementById("login-btn");
+      const formBox = document.getElementById("form-box");
+      const popup = document.getElementById("popup");
+
+      if (username === correctUsername && password === correctPassword) {
+        errorMsg.classList.add("hidden");
+
+        loginBtn.innerText = "Thành công ✓";
+        loginBtn.classList.remove("bg-white", "text-black");
+        loginBtn.classList.add("bg-green-500", "text-white", "animate-pulse");
+
+        // Hiện popup xử lý
+        popup.classList.remove("hidden");
+
+        // Sau 1.2s thì chuyển trang
+        setTimeout(() => {
+          window.location.href = "https://nguyentuananh2011.github.io/UGPHONE-V4-NEW-/";
+        }, 1200);
+      } else {
+        errorMsg.classList.remove("hidden");
+
+        // Hiệu ứng rung khi sai
+        formBox.classList.add("shake");
+        setTimeout(() => formBox.classList.remove("shake"), 400);
+      }
+    }
+  </script>
 </body>
-
-</html>
+  </html>
